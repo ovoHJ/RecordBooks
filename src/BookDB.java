@@ -35,7 +35,7 @@ public class BookDB {
     }
 
     /* 책 정보를 DB에 insert 하는 메소드 */
-    public int insertBook(Book book) {
+    public void insertBook(Book book) {
         int result = 0;
         try {
             sql = "insert into book values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -57,8 +57,6 @@ public class BookDB {
             e.printStackTrace();
             System.out.println("InsertBook 오류");
         }
-
-        return result;
     }
 
     /* DB에서 모든 책 정보를 Vector에 저장하여 가져오는 메소드 */
@@ -118,5 +116,64 @@ public class BookDB {
             System.out.println("LatelyBook 오류");
         }
         return book;
+    }
+
+    /* DB에서 모든 책 정보를 Vector에 저장하여 가져오는 메소드 */
+    public Vector<Book> finishedBook() {
+        Vector<Book> flist = new Vector<Book>();
+        Book book = null;
+
+        try {
+            sql = "SELECT DATE, title, writer, publisher FROM book WHERE finish = 1";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                book = new Book();
+                book.setDate(rs.getString("date"));
+                book.setTitle(rs.getString("title"));
+                book.setWriter(rs.getString("writer"));
+                book.setPublisher(rs.getString("publisher"));
+                flist.add(book);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("finishedBook 오류");
+        }
+
+        return flist;
+    }
+
+    /*  조건에 해당하는 정보를 전부 저장해서 리턴하는 메소드 */
+    public Vector<Book> search(String title, String writer, String publisher) {
+        Vector<Book> flist = new Vector<Book>();
+        Book book = null;
+
+        try {
+            sql = "SELECT * FROM book WHERE title = ? and writer = ? and publisher = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, title);
+            pstmt.setString(2, writer);
+            pstmt.setString(3, publisher);
+
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                book = new Book();
+                book.setTitle(rs.getString("title"));
+                book.setWriter(rs.getString("writer"));
+                book.setPublisher(rs.getString("publisher"));
+                book.setDate(rs.getString("date"));
+                book.setStory(rs.getString("story"));
+                book.setFeeling(rs.getString("feeling"));
+                book.setParagraph(rs.getString("paragraph"));
+                flist.add(book);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("search 오류");
+        }
+
+        return flist;
     }
 }

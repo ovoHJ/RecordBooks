@@ -4,7 +4,7 @@
     책을 읽을 때마다 조금씩 작성한 감상문을 합쳐 하나의 완성된 독후감이 만들어지는 프로그램입니다.
     프로그램을 실행하기 위해서는 RecordBookTest.java 파일에서 실행해야 합니다.
 
-    'AllBook.java'는 - 클래스입니다.
+    'AllBook.java'는 짧은 감상문을 DB에 넣고 표로 출력하는 클래스입니다.
  */
 
 import javax.swing.*;
@@ -154,6 +154,7 @@ public class AllBook {
         inPanel.add(load);
         /* 엄청난 GUI 구간이 끝났습니다. */
 
+        /* 버튼을 누르면 데이터 추가와 JTable 갱신이 동시에 일어납니다. */
         save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -4,7 +4,7 @@
     책을 읽을 때마다 조금씩 작성한 감상문을 합쳐 하나의 완성된 독후감이 만들어지는 프로그램입니다.
     프로그램을 실행하기 위해서는 RecordBookTest.java 파일에서 실행해야 합니다.
 
-    'Statistics.java'는 - 클래스입니다.
+    'Statistics.java'는 독서 통계를 보여주는 클래스입니다.
  */
 
 import javax.swing.*;
@@ -14,8 +14,15 @@ public class Statistics {
     JFrame frame = new JFrame();
     JPanel panel = new JPanel();
 
+    JLabel lb = new JLabel("지금 업데이트 중인 작업입니다.");
+    Font font = new Font("맑은고딕", Font.BOLD, 20);
+
     public Statistics() {
-        panel.setBackground(Color.PINK);
+        panel.setLayout(null);
+
+        lb.setBounds(420, 250, 300, 200);
+        lb.setFont(font);
+        panel.add(lb);
         frame.add(panel);
 
         frame.setResizable(false);
