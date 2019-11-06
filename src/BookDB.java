@@ -3,6 +3,8 @@
     프로젝트 '단(短)독'은 책을 전부 다 읽고 쓰는 기존의 독후감 방식과 다르게
     책을 읽을 때마다 조금씩 작성한 감상문을 합쳐 하나의 완성된 독후감이 만들어지는 프로그램입니다.
     프로그램을 실행하기 위해서는 RecordBookTest.java 파일에서 실행해야 합니다.
+
+    'BookDB.java'는 JDBC 연동 및 DB에 관련된 모든 것을 관리하는 클래스입니다.
  */
 
 import java.sql.Connection;
@@ -21,7 +23,7 @@ public class BookDB {
     String sql = null;
     ResultSet rs = null;
 
-    // 생성자를 통해 JDBC 드라이버 로딩
+    /* 생성자를 통해 JDBC 드라이버 로딩 */
     public BookDB() {
         try {
             Class.forName(JDBC_DRIVER);
@@ -32,7 +34,7 @@ public class BookDB {
         }
     }
 
-    // 책 정보를 DB에 insert 하는 메소드
+    /* 책 정보를 DB에 insert 하는 메소드 */
     public int insertBook(Book book) {
         int result = 0;
         try {
@@ -59,7 +61,7 @@ public class BookDB {
         return result;
     }
 
-    // DB에서 모든 책 정보를 Vector에 저장하여 가져오는 메소드
+    /* DB에서 모든 책 정보를 Vector에 저장하여 가져오는 메소드 */
     public Vector<Book> selectAll() {
         Vector<Book> blist = new Vector<Book>();
         Book book = null;
@@ -91,7 +93,7 @@ public class BookDB {
         return blist;
     }
 
-    // DB에서 가장 최근 저장한 책 정보를 가져오는 메소드
+    /* DB에서 가장 최근 저장한 책 정보를 가져오는 메소드 */
     public Book latelyBook() {
         Book book = null;
         try {

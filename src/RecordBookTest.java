@@ -4,10 +4,8 @@
     책을 읽을 때마다 조금씩 작성한 감상문을 합쳐 하나의 완성된 독후감이 만들어지는 프로그램입니다.
     프로그램을 실행하기 위해서는 RecordBookTest.java 파일에서 실행해야 합니다.
 
-    이 프로젝트는
+    'RecordBookTest.java'는 모든 파일을 관리하는 클래스입니다.
  */
-
-import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,51 +13,70 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RecordBookTest {
+        static AllBook all = new AllBook();
+        static EndBook end = null;
+        static Statistics stat = null;
     public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        JPanel panel = new JPanel();
-        BorderLayout bl = new BorderLayout();
-
         Menu menu = new Menu();
-        MainScreen ms = new MainScreen();
 
-        panel.setLayout(bl);
-        panel.add(menu.panel, BorderLayout.EAST);
-        panel.add(ms.panel);
-
+        /* 각각의 버튼을 클릭하면? */
         menu.allBook.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                menu.allBook.setForeground(Color.WHITE);
+                menu.endBook.setForeground(Color.BLACK);
+                menu.statistics.setForeground(Color.BLACK);
+
                 menu.allBook.setBackground(new Color(51, 153, 255));
                 menu.endBook.setBackground(Color.WHITE);
                 menu.statistics.setBackground(Color.WHITE);
-                // MainScreen 에서 화면 바뀌는 메서드
+
+                /* 화면을 확인해서 같은 화면이면 그대로, 다른 화면이면 본래 frame 창을 닫고 새로운 화면을 보여준다 */
+                if (all != null) all.frame.dispose();
+                if (end != null) end.frame.dispose();
+                if (stat != null) stat.frame.dispose();
+
+                all = new AllBook();
             }
         });
         menu.endBook.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                menu.allBook.setForeground(Color.BLACK);
+                menu.endBook.setForeground(Color.WHITE);
+                menu.statistics.setForeground(Color.BLACK);
+
                 menu.allBook.setBackground(Color.WHITE);
                 menu.endBook.setBackground(new Color(51, 153, 255));
                 menu.statistics.setBackground(Color.WHITE);
-                // MainScreen 에서 화면 바뀌는 메서드
+
+                /* 화면을 확인해서 같은 화면이면 그대로, 다른 화면이면 본래 frame 창을 닫고 새로운 화면을 보여준다 */
+                if (all != null) all.frame.dispose();
+                if (end != null) end.frame.dispose();
+                if (stat != null) stat.frame.dispose();
+
+                end = new EndBook();
             }
         });
         menu.statistics.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                menu.allBook.setForeground(Color.BLACK);
+                menu.endBook.setForeground(Color.BLACK);
+                menu.statistics.setForeground(Color.WHITE);
+
+
                 menu.allBook.setBackground(Color.WHITE);
                 menu.endBook.setBackground(Color.WHITE);
                 menu.statistics.setBackground(new Color(51, 153, 255));
-                // MainScreen 에서 화면 바뀌는 메서드
+
+                /* 화면을 확인해서 같은 화면이면 그대로, 다른 화면이면 본래 frame 창을 닫고 새로운 화면을 보여준다 */
+                if (all != null) all.frame.dispose();
+                if (end != null) end.frame.dispose();
+                if (stat != null) stat.frame.dispose();
+
+                stat = new Statistics();
             }
         });
-
-        frame.add(panel);
-
-        frame.setPreferredSize(new Dimension(1500, 1000));
-        frame.pack();
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
